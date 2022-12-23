@@ -1,0 +1,53 @@
+[user]
+	name = Zymrael
+    email = mic.poli@hotmail.it
+[core]
+    editor = "nvim --noplugin"
+    pager = delta
+[color]
+    ui = true
+    diff = true
+
+[alias]
+    # commits
+    ci    = commit
+    cm    = commit -m
+    ca    = commit -a -m
+    amend = commit --amend -c HEAD
+    # rebases
+    pr    = pull --rebase
+    rc    = rebase --continue
+    ra    = rebase --abort
+    # diffs
+    dc    = diff --cached
+    dw    = diff --word-diff
+    # stash
+    ss    = stash save
+    sl    = stash list
+    sa    = stash apply
+    sp    = stash pop
+
+    # https://dev.to/committedsw/useful-git-alias-47in
+    la    = "!git config -l | grep alias | cut -c 7-"
+    sts   = "!git status -s | cat -n"
+    s     = "!stage() { git add `git sts | sed -n $1p | awk -F' ' '{ print $3 }'`; git sts; }; stage"
+    u     = "!unstage() { git reset HEAD `git sts | sed -n $1p | awk -F' ' '{ print $2 }'`; git sts; }; unstage"
+    hash  = rev-parse --short HEAD
+    files = "!git diff --name-status $1^ $1"
+    #
+    # From https://www.durdn.com/blog/2012/11/22/must-have-git-aliases-advanced-examples/
+    ls  = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
+    ll  = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat # show changed files
+    lds = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short # ls with date
+    ld = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=relative # relative date
+    filelog = log -u
+    # List aliases
+    la = "!git config -l | grep alias | cut -c 7-"
+
+[filter "lfs"]
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+    required = true
+[commit]
+	gpgsign = false
